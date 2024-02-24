@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router"; // Correct import statement
 
 const RegistrationForm = () => {
-  const router = useRouter("/registration");
+  const router = useRouter(); // Changed useRouter("/registration") to useRouter()
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +15,7 @@ const RegistrationForm = () => {
       const registrationData = { username, email, password };
 
       // Make a POST request to your API endpoint
-      const response = await fetch("/api/register", {
+      const response = await fetch("http://127.0.0.1:8000/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,7 +28,7 @@ const RegistrationForm = () => {
       }
 
       // Redirect to home page if registration is successful
-      router.push("/home");
+      router.push("/home"); // Using useRouter() for routing
     } catch (error) {
       console.error("Registration failed:", error.message);
       // Handle registration failure, e.g., display error message to user
