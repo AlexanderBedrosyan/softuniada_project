@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router"; // Correct import statement
+import { useRouter } from "next/navigation"; // Correct import statement
 
 const RegistrationForm = () => {
   const router = useRouter(); // Changed useRouter("/registration") to useRouter()

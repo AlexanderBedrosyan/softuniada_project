@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'backend',
-    'rest_framework'
+    'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -49,7 +50,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    # List of allowed frontend domains (e.g., 'http://localhost:3000')
+    # '*' allows any domain; replace it with specific domains for security
+    'http://localhost:3000'
+]
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'softuniada_project.urls'
 
