@@ -1,29 +1,35 @@
-// Import the sqlite3 package
-import sqlite3 from "sqlite3";
+import { hashPassword } from "@/lib/auth";
+import { openDb } from "@/lib/db";
 
 // Create a handler function for your API route
 async function handler(req, res) {
-  // Open a connection to your SQLite database
-  const db = new sqlite3.Database("path/to/your/database.db", (err) => {
-    if (err) {
-      console.error("Error opening database connection:", err.message);
-      res.status(500).json({ error: "Internal server error" });
-    } else {
-      console.log("Connected to the SQLite database.");
+  try {
+    // Extract user data from the request body
+    const { username, password } = req.body;
 
-      // Perform database operations here
+    // Open the SQLite database connection
+    const db = await openDb();
 
-      // Close the database connection when done
-      db.close((err) => {
-        if (err) {
-          console.error("Error closing database connection:", err.message);
-        } else {
-          console.log("Database connection closed.");
-        }
-      });
-    }
-  });
+    const hashedPassword = hashPassword(password);
+
+    // Execute SQL query to insert a new user
+    const result = await db.run(
+      "INSERT INTO users (username, password) VALUES (?, ?)",
+      [username, hashedPassword]
+    );
+
+    // Close the database connection
+    await db.close();
+
+    // Respond with success message or user ID
+    res
+      .status(200)
+      .json({ message: "User created successfully", userId: result.lastID });
+  } catch (error) {
+    // Handle errors
+    console.error("Error creating user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 }
 
-// Export the handler function
 export default handler;

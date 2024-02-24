@@ -9,6 +9,3 @@ export async function openDb() {
     driver: sqlite3.Database,
   });
 }
-
-// Export the handler function
-export default connectToDataBase;
