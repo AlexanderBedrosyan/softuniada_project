@@ -76,7 +76,7 @@ const RegistrationForm = () => {
     <div className="min-h-screen bg-gray-100 flex justify-center items-center">
       <div className="bg-white mx-4 p-4 sm:p-8 rounded-lg shadow-md w-full md:w-1/2 lg:w-1/3">
         <h2 className="text-center text-2xl font-semibold mb-4">
-          Registration Form
+          Get Started With Us! 🏡
         </h2>
         <form onSubmit={handleRegister} className="flex flex-col gap-4">
           {/* Display error messages */}
