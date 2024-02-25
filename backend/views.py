@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .serializer import BookModelSerializer, UserSerializer
-from .models import Book
+from .models import Book, User
 
 # Create your views here.
 
@@ -22,6 +22,10 @@ class BookViewSet(viewsets.ModelViewSet):
 def register_user_view(request):
     if request.method == 'POST':
         data = request.data.copy()
+        emails = User.objects.values_list('email', flat=True)
+
+        if data['email'] in emails:
+            return Response({'error': 'Email is already used'}, status=status.HTTP_400_BAD_REQUEST)
 
         if 'password' in data:
             data['password'] = make_password(data['password'])
