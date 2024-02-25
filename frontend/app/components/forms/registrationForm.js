@@ -65,12 +65,11 @@ const RegistrationForm = () => {
       setPassword("");
       setIsLoading(false);
 
-      const responseData = await response.json()
+      const responseData = await response.json();
 
       if (!response.ok) {
-        console.log(responseData.message)
         setShake(true);
-        throw new Error("Failed to register");
+        throw new Error(responseData.message);
       }
 
       router.push("/home");
