@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Fixed import statement
 import { Spinner } from "@nextui-org/react";
 import { Button } from "@nextui-org/button";
+import styles from "./animation.module.css";
 import { z, ZodError } from "zod";
 
 // Define schema using Zod
 const registrationSchema = z.object({
-  username: z.string().min(3, "Username must contain at least 3 charaacters"),
+  username: z.string().min(3, "Username must contain at least 3 characters"),
   email: z
     .string()
     .email()
@@ -30,6 +31,16 @@ const RegistrationForm = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({}); // State to hold error messages for each field
+  const [shake, setShake] = useState(false); // State to trigger shake animation
+
+  useEffect(() => {
+    // Reset shake animation after a brief delay
+    const shakeTimeout = setTimeout(() => {
+      setShake(false);
+    }, 1000);
+
+    return () => clearTimeout(shakeTimeout);
+  }, [shake]);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -49,6 +60,10 @@ const RegistrationForm = () => {
         },
         body: JSON.stringify(registrationData),
       });
+      setEmail("");
+      setUsername("");
+      setPassword("");
+      setIsLoading(false);
 
       if (!response.ok) {
         throw new Error("Failed to register");
@@ -56,6 +71,7 @@ const RegistrationForm = () => {
 
       router.push("/home");
     } catch (error) {
+      setIsLoading(false);
       if (error instanceof ZodError) {
         // Handle validation errors
         setErrors(
@@ -67,18 +83,22 @@ const RegistrationForm = () => {
       } else {
         console.error("Registration failed:", error.message);
         setErrors({ _general: "Registration failed. Please try again." });
+        setShake(true); // Trigger shake animation
       }
     }
-    setIsLoading(false);
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center">
-      <div className="bg-white mx-4 p-4 sm:p-8 rounded-lg shadow-md w-full md:w-1/2 lg:w-1/3">
+    <div
+      className={`min-h-screen bg-gray-100 flex justify-center items-center ${
+        shake ? `${styles.animateshake}` : ""
+      }`}
+    >
+      <section className="bg-white mx-4 p-4 sm:p-8 rounded-lg shadow-md w-full md:w-1/2 lg:w-1/3 ">
         <h2 className="text-center text-2xl font-semibold mb-4">
           Get Started With Us! 🏡
         </h2>
-        <form onSubmit={handleRegister} className="flex flex-col gap-4">
+        <form onSubmit={handleRegister} className="flex flex-col gap-4 py-6">
           {/* Display error messages */}
           {errors._general && (
             <div className="text-red-600">{errors._general}</div>
@@ -135,7 +155,7 @@ const RegistrationForm = () => {
             )}
           </Button>
         </form>
-      </div>
+      </section>
     </div>
   );
 };
