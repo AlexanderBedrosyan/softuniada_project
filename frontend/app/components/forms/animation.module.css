@@ -18,4 +18,5 @@
 
 .animateshake {
   animation: shake 0.5s;
+  overflow: hidden;
 }
