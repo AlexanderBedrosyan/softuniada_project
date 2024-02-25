@@ -6,9 +6,21 @@ import { z, ZodError } from "zod";
 
 // Define schema using Zod
 const registrationSchema = z.object({
-  username: z.string().min(3),
-  email: z.string().email(),
-  password: z.string().min(8, "Password must contain at least 8 characters"),
+  username: z.string().min(3, "Username must contain at least 3 charaacters"),
+  email: z
+    .string()
+    .email()
+    .regex(
+      /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/,
+      "Invalid email format"
+    ),
+  password: z
+    .string()
+    .min(8, "Password must contain at least 8 characters")
+    .regex(
+      /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/,
+      "Password must include at least one uppercase letter and one symbol"
+    ),
 });
 
 const RegistrationForm = () => {
