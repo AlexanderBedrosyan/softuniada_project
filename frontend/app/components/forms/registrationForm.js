@@ -88,7 +88,7 @@ const RegistrationForm = () => {
         console.error("Registration failed:", error.message);
         setErrors({
           _general:
-            responseData.message || "Registration failed. Please try again.",
+            responseData?.message || "Registration failed. Please try again.",
         });
       }
     }
