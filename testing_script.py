@@ -1,3 +1,4 @@
+import json
 import os
 from datetime import timedelta, date
 
@@ -18,12 +19,7 @@ from backend.models import User
 
 
 def test_validator():
-    all_usernames = User.objects.values_list('username', flat=True)
-    if 'Pesho' in all_usernames:
-        user = User.objects.get(username='Pesho')
-        if check_password('BunaciBunaci*', user.password):
-            print('Ima q')
-        else:
-            print('Nema q')
+    data = {'message': 'Email is already used'}
+    print(json.dumps(data))
 
 test_validator()

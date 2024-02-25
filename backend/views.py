@@ -1,4 +1,7 @@
+import json
+
 from django.contrib.auth.hashers import make_password, check_password
+from django.http import JsonResponse
 from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view, permission_classes
@@ -26,7 +29,8 @@ def register_user_view(request):
         emails = User.objects.values_list('email', flat=True)
 
         if data['email'] in emails:
-            return Response({'error': 'Email is already used'}, status=status.HTTP_400_BAD_REQUEST)
+            message = {'message': 'Email is already used'}
+            return JsonResponse(message, status=status.HTTP_400_BAD_REQUEST)
 
         if 'password' in data:
             data['password'] = make_password(data['password'])
@@ -56,4 +60,4 @@ def login_view(request):
                     'refresh_token': str(refresh),
                 }, status=status.HTTP_200_OK)
 
-    return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+    return JsonResponse({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)

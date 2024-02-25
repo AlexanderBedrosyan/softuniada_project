@@ -26,9 +26,9 @@ const registrationSchema = z.object({
 
 const RegistrationForm = () => {
   const router = useRouter();
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("gorgona");
+  const [email, setEmail] = useState("pesholud@abv.bg");
+  const [password, setPassword] = useState("BunaciBunaci*");
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({}); // State to hold error messages for each field
   const [shake, setShake] = useState(false); // State to trigger shake animation
@@ -65,7 +65,10 @@ const RegistrationForm = () => {
       setPassword("");
       setIsLoading(false);
 
+      const responseData = await response.json()
+
       if (!response.ok) {
+        console.log(responseData.message)
         setShake(true);
         throw new Error("Failed to register");
       }

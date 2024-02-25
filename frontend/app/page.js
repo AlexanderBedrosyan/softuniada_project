@@ -5,7 +5,7 @@ import { NextUIProvider } from "@nextui-org/system";
 // const {data, status} = useSession()
 // if (status == authenticated) {
 // redirect to homepage  
-} 
+
 export default function Home() {
   return (
     <main className="">
