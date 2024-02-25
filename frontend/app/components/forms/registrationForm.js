@@ -60,18 +60,18 @@ const RegistrationForm = () => {
         },
         body: JSON.stringify(registrationData),
       });
-      setEmail("");
-      setUsername("");
-      setPassword("");
-      setIsLoading(false);
 
       const responseData = await response.json();
 
       if (!response.ok) {
         setShake(true);
-        throw new Error(responseData.message);
+        throw new Error(responseData.message); // Throwing the error with the response message
       }
 
+      setEmail("");
+      setUsername("");
+      setPassword("");
+      setIsLoading(false);
       router.push("/home");
     } catch (error) {
       setShake(true);
@@ -87,7 +87,6 @@ const RegistrationForm = () => {
       } else {
         console.error("Registration failed:", error.message);
         setErrors({ _general: "Registration failed. Please try again." });
-        setShake(true); // Trigger shake animation
       }
     }
   };
