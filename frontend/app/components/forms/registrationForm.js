@@ -66,11 +66,13 @@ const RegistrationForm = () => {
       setIsLoading(false);
 
       if (!response.ok) {
+        setShake(true);
         throw new Error("Failed to register");
       }
 
       router.push("/home");
     } catch (error) {
+      setShake(true);
       setIsLoading(false);
       if (error instanceof ZodError) {
         // Handle validation errors
