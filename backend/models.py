@@ -8,6 +8,9 @@ class Book(models.Model):
     title = models.CharField(max_length=150)
     author = models.CharField(max_length=100)
 
+    def __str__(self):
+        return f"'{self.title}', author: {self.author}"
+
 
 class User(models.Model):
 
@@ -15,3 +18,5 @@ class User(models.Model):
     email = models.EmailField(validators=[EmailValidator(message='Enter a valid email address.')])
     password = models.CharField(max_length=128)
 
+    def __str__(self):
+        return self.username
