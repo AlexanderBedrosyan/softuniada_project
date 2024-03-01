@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "@nextui-org/react";
 import { useRouter } from "next/navigation"; // Fixed import statement
 import { Spinner } from "@nextui-org/react";
 import { Button } from "@nextui-org/button";
 import styles from "./animation.module.css";
+import { REGISTER_USRE } from "@/lib/constants";
 import { z, ZodError } from "zod";
 
 // Define schema using Zod
@@ -53,7 +55,7 @@ const RegistrationForm = () => {
 
       const registrationData = { username, email, password };
 
-      const response = await fetch("http://127.0.0.1:8000/api/register", {
+      const response = await fetch(`${REGISTER_USRE}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,14 +70,10 @@ const RegistrationForm = () => {
         throw new Error(responseData.message); // Throwing the error with the response message
       }
 
-      setEmail("");
-      setUsername("");
-      setPassword("");
-      setIsLoading(false);
       router.push("/home");
     } catch (error) {
       setShake(true);
-      setIsLoading(false);
+
       if (error instanceof ZodError) {
         // Handle validation errors
         setErrors(
@@ -90,6 +88,8 @@ const RegistrationForm = () => {
           _general: error.message || "Registration failed. Please try again.",
         });
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -160,6 +160,9 @@ const RegistrationForm = () => {
             )}
           </Button>
         </form>
+        <p>
+          Already have an account? <Link href="/">Sign In</Link>
+        </p>
       </section>
     </div>
   );
