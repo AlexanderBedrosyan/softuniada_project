@@ -70,7 +70,7 @@ const RegistrationForm = () => {
         throw new Error(responseData.message); // Throwing the error with the response message
       }
 
-      router.push("/Log-in");
+      router.push("/log-in");
     } catch (error) {
       setShake(true);
 
@@ -161,10 +161,8 @@ const RegistrationForm = () => {
           </Button>
         </form>
         <p>
-          Already have an account?{" "}
-          <Link href="/" onClick={() => router.push("/Log-in")}>
-            Sign In
-          </Link>
+          Already have an account?
+          <Link href="/log-in"> Sign In</Link>
         </p>
       </section>
     </div>
