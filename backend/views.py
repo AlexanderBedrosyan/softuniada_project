@@ -55,7 +55,6 @@ def login_view(request):
             user = User.objects.get(email=email)
             if check_password(password, user.password):
                 refresh = RefreshToken.for_user(user)
-
                 return Response({
                     'access_token': str(refresh.access_token),
                     'refresh_token': str(refresh),
