@@ -16,10 +16,3 @@ from backend.models import User
 
 
 # Create queries within functions
-
-
-def test_validator():
-    data = {'message': 'Email is already used'}
-    print(json.dumps(data))
-
-test_validator()
