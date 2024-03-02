@@ -12,6 +12,8 @@ export const AuthProvider = ({ children }) => {
   const loginUser = async (e) => {
     e.preventDefault();
     console.log("form submited");
+    console.log(e.target.username.value);
+    console.log(e.target.password.value);
 
     const response = await fetch(`${LOGIN_USER}`, {
       method: "POST",
@@ -19,7 +21,7 @@ export const AuthProvider = ({ children }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: e.target.username.value,
+        email: e.target.username.value,
         password: e.target.password.value,
       }),
     });

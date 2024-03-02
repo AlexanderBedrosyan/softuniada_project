@@ -9,7 +9,6 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState({});
 
   return (
     <div
@@ -20,11 +19,6 @@ const LoginPage = () => {
           Welcome back! 👋
         </h2>
         <form onSubmit={loginUser} className="flex flex-col gap-4 py-6">
-          {/* Display error messages */}
-          {errors._general && (
-            <div className="text-red-600">{errors._general}</div>
-          )}
-
           <input
             type="text"
             placeholder="example@example"
