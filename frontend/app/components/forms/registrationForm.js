@@ -162,7 +162,9 @@ const RegistrationForm = () => {
         </form>
         <p>
           Already have an account?
-          <Link href="/log-in"> Sign In</Link>
+          <Link href="/log-in">
+            <span className="mx-2">Sign In</span>
+          </Link>
         </p>
       </section>
     </div>
