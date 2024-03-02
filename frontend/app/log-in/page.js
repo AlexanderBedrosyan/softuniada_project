@@ -1,24 +1,15 @@
 "use client";
+import { useContext } from "react";
+import AuthContext from "@/contexts/authContext";
 import { useState } from "react";
 import Link from "next/link";
 
 const LoginPage = () => {
+  const { loginUser } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Handle login logic here, e.g., make API call to authenticate user
-
-    // Dummy example:
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setErrors({ _general: "Incorrect username or password." }); // Dummy error message
-    }, 2000);
-  };
 
   return (
     <div
@@ -28,7 +19,7 @@ const LoginPage = () => {
         <h2 className="text-center text-2xl font-semibold mb-4">
           Welcome back! 👋
         </h2>
-        <form onSubmit={handleLogin} className="flex flex-col gap-4 py-6">
+        <form onSubmit={loginUser} className="flex flex-col gap-4 py-6">
           {/* Display error messages */}
           {errors._general && (
             <div className="text-red-600">{errors._general}</div>
@@ -36,7 +27,8 @@ const LoginPage = () => {
 
           <input
             type="text"
-            placeholder="Username"
+            placeholder="example@example"
+            name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
@@ -45,6 +37,7 @@ const LoginPage = () => {
           <input
             type="password"
             placeholder="Password"
+            name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
