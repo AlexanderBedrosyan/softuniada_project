@@ -14,30 +14,43 @@ export const AuthProvider = ({ children }) => {
   const [authTokens, setAuthTokens] = useState(() =>
     getAuthTokensFromLocalStorage()
   );
+  const [wrongPassword, setWrongPassword] = useState();
 
   const router = useRouter();
 
   const loginUser = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${LOGIN_USER}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: e.target.username.value,
-        password: e.target.password.value,
-      }),
-    });
-    const data = await response.json();
+    try {
+      const response = await fetch(`${LOGIN_USER}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: e.target.username.value,
+          password: e.target.password.value,
+        }),
+      });
 
-    if (response.ok) {
+      const data = await response.json();
+
+      if (!response.ok) {
+        // Handle non-successful response status (e.g., 400, 401, etc.)
+        throw new Error(data.message || "Login failed");
+      }
+
       const decode = jwtDecode(data.access_token);
       setAuthTokens(data);
       setUser(decode);
+      setWrongPassword(false);
       localStorage.setItem("authTokens", JSON.stringify(data));
 
       router.push("/home");
+    } catch (error) {
+      // Handle fetch or other errors
+      console.error("Login failed:", error.message);
+      // You might want to set some state here to indicate the error to the user
+      setWrongPassword(wrongPassword);
     }
   };
 
@@ -53,6 +66,7 @@ export const AuthProvider = ({ children }) => {
     authTokens: authTokens,
     loginUser: loginUser,
     logoutUser: logoutUser,
+    wrongPassword: wrongPassword,
   };
 
   return (

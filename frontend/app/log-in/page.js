@@ -2,20 +2,22 @@
 import { useContext } from "react";
 import AuthContext from "@/contexts/authContext";
 import { useState } from "react";
-import Link from "next/link";
-import { z } from "zod"; // Import Zod
+import SubmitButton from "../components/loginform/SubmitButton";
+import SignupLink from "../components/loginform/signupLink";
+import LoginForm from "../components/loginform/LoginForm";
+import { z } from "zod";
 
 const LoginPage = () => {
-  const { loginUser, authTokens } = useContext(AuthContext);
+  const { loginUser, wrongPassword } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState({}); // State to hold validation errors
+  const [errors, setErrors] = useState({});
 
   // Define Zod schema for validation
   const schema = z.object({
     username: z.string().email({ message: "Invalid email address" }),
-    password: z.string().min(6, { message: "Invalid Password" }),
+    password: z.string().min(3, { message: "Invalid Password" }),
   });
 
   // Function to handle form submission
@@ -34,7 +36,7 @@ const LoginPage = () => {
       if (error instanceof z.ZodError) {
         const fieldErrors = {};
         error.errors.forEach((err) => {
-          fieldErrors[err.path[0]] = err.message; // Map each error to its corresponding field
+          fieldErrors[err.path[0]] = err.message;
         });
         setErrors(fieldErrors);
       }
@@ -55,46 +57,14 @@ const LoginPage = () => {
           onSubmit={(e) => handleSubmit(e)}
           className="flex flex-col gap-4 py-6"
         >
-          <input
-            type="text"
-            placeholder="example@example"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+          <LoginForm
+            setUsername={setUsername}
+            setPassword={setPassword}
+            errors={errors}
           />
-          {errors.username && (
-            <span className="text-red-500">{errors.username}</span>
-          )}{" "}
-          {/* Display username error */}
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
-          />
-          {errors.password && (
-            <span className="text-red-500">{errors.password}</span>
-          )}{" "}
-          {/* Display password error */}
-          <button
-            type="submit"
-            className={`${
-              isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
-            } bg-blue-500 text-white rounded-md py-2 transition-colors duration-300`}
-            disabled={isLoading}
-          >
-            {isLoading ? "Logging in..." : "Log In"}
-          </button>
+          <SubmitButton isLoading={isLoading} />
         </form>
-        <p>
-          Don't have an account yet?
-          <Link href="/">
-            <span className="text-blue-500 ml-2">Sign Up</span>
-          </Link>
-        </p>
+        <SignupLink />
       </section>
     </div>
   );
