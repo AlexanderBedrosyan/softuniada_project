@@ -1,4 +1,5 @@
 import json
+from datetime import datetime, timedelta
 
 from django.contrib.auth.hashers import make_password, check_password
 from django.http import JsonResponse
@@ -62,6 +63,7 @@ def login_view(request):
                     'user_id': user.id,
                     'email': user.email,
                     'type': 'refresh',
+                    'exp': datetime.utcnow() + timedelta(days=1)
                 }
 
                 key = SECRET_KEY
@@ -72,6 +74,7 @@ def login_view(request):
                     'user_id': user.id,
                     'email': user.email,
                     'type': 'access',
+                    'exp': datetime.utcnow() + timedelta(days=1)
                 }
 
                 access_token = PyJWT().encode(access_payload, key, algorithm='HS256')
