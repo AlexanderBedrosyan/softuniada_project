@@ -24,7 +24,6 @@ export default function Nav() {
       <NavbarContent justify="start">
         <NavbarBrand className="mr-4">
           <Logo />
-          <p className="hidden sm:block font-bold text-inherit">ACME</p>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-3">
           <NavbarItem>
