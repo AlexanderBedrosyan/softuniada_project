@@ -3,12 +3,45 @@ import { useContext } from "react";
 import AuthContext from "@/contexts/authContext";
 import { useState } from "react";
 import Link from "next/link";
+import { z } from "zod"; // Import Zod
 
 const LoginPage = () => {
-  const { loginUser } = useContext(AuthContext);
+  const { loginUser, authTokens } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({}); // State to hold validation errors
+
+  // Define Zod schema for validation
+  const schema = z.object({
+    username: z.string().email({ message: "Invalid email address" }),
+    password: z.string().min(6, { message: "Invalid Password" }),
+  });
+
+  // Function to handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    // Validate form inputs
+    const inputData = { username, password };
+    try {
+      schema.parse(inputData); // Validate inputs against schema
+      setErrors({}); // Reset errors
+      await loginUser(e); // Pass event along with input data to loginUser
+    } catch (error) {
+      // Handle validation errors
+      if (error instanceof z.ZodError) {
+        const fieldErrors = {};
+        error.errors.forEach((err) => {
+          fieldErrors[err.path[0]] = err.message; // Map each error to its corresponding field
+        });
+        setErrors(fieldErrors);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div
@@ -18,7 +51,10 @@ const LoginPage = () => {
         <h2 className="text-center text-2xl font-semibold mb-4">
           Welcome back! 👋
         </h2>
-        <form onSubmit={loginUser} className="flex flex-col gap-4 py-6">
+        <form
+          onSubmit={(e) => handleSubmit(e)}
+          className="flex flex-col gap-4 py-6"
+        >
           <input
             type="text"
             placeholder="example@example"
@@ -27,7 +63,10 @@ const LoginPage = () => {
             onChange={(e) => setUsername(e.target.value)}
             className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
           />
-
+          {errors.username && (
+            <span className="text-red-500">{errors.username}</span>
+          )}{" "}
+          {/* Display username error */}
           <input
             type="password"
             placeholder="Password"
@@ -36,7 +75,10 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
             className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
           />
-
+          {errors.password && (
+            <span className="text-red-500">{errors.password}</span>
+          )}{" "}
+          {/* Display password error */}
           <button
             type="submit"
             className={`${
@@ -50,8 +92,7 @@ const LoginPage = () => {
         <p>
           Don't have an account yet?
           <Link href="/">
-            {" "}
-            <span className="text-blue-500">Sign Up</span>
+            <span className="text-blue-500 ml-2">Sign Up</span>
           </Link>
         </p>
       </section>
