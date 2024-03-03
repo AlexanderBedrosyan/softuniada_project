@@ -84,6 +84,8 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
+JWT_SECRET_KEY="some_random_string"
+
 CORS_ALLOWED_ORIGINS = [
     # List of allowed frontend domains (e.g., 'http://localhost:3000')
     # '*' allows any domain; replace it with specific domains for security
