@@ -14,6 +14,7 @@ from simplejwt import jwt
 from softuniada_project.settings import SECRET_KEY
 from jwt.algorithms import get_default_algorithms
 from jwt.api_jwt import PyJWT
+from rest_framework import generics as api_views, status, permissions, pagination
 
 from .serializer import BookModelSerializer, UserSerializer
 from .models import Book, User
@@ -27,21 +28,11 @@ class BookViewSet(viewsets.ModelViewSet):
     serializer_class = BookModelSerializer
 
 
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def register_user_view(request):
-    if request.method == 'POST':
-        data = request.data.copy()
-        emails = User.objects.values_list('email', flat=True)
+class Register(api_views.CreateAPIView):
+    serializer_class = UserSerializer
 
-        if data['email'] in emails:
-            message = {'message': 'Email is already used'}
-            return JsonResponse(message, status=status.HTTP_400_BAD_REQUEST)
-
-        if 'password' in data:
-            data['password'] = make_password(data['password'])
-
-        serializer = UserSerializer(data=data)
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
@@ -49,39 +40,40 @@ def register_user_view(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['POST'])
-def login_view(request):
-    email = request.data.get('email')
-    password = request.data.get('password')
-    all_usernames = User.objects.values_list('email', flat=True)
+class Login(APIView):
 
-    if email and password:
-        if email in all_usernames:
-            user = User.objects.get(email=email)
-            if check_password(password, user.password):
-                refresh_payload = {
-                    'user_id': user.id,
-                    'email': user.email,
-                    'type': 'refresh',
-                    'exp': datetime.utcnow() + timedelta(days=1)
-                }
+    def post(self, request, *args, **kwargs):
+        email = request.data.get('email')
+        password = request.data.get('password')
+        all_usernames = User.objects.values_list('email', flat=True)
 
-                key = SECRET_KEY
+        if email and password:
+            if email in all_usernames:
+                user = User.objects.get(email=email)
+                if check_password(password, user.password):
+                    refresh_payload = {
+                        'user_id': user.id,
+                        'email': user.email,
+                        'type': 'refresh',
+                        'exp': datetime.utcnow() + timedelta(days=1)
+                    }
 
-                refresh_token = PyJWT().encode(refresh_payload, key, algorithm='HS256')
+                    key = SECRET_KEY
 
-                access_payload = {
-                    'user_id': user.id,
-                    'email': user.email,
-                    'type': 'access',
-                    'exp': datetime.utcnow() + timedelta(days=1)
-                }
+                    refresh_token = PyJWT().encode(refresh_payload, key, algorithm='HS256')
 
-                access_token = PyJWT().encode(access_payload, key, algorithm='HS256')
+                    access_payload = {
+                        'user_id': user.id,
+                        'email': user.email,
+                        'type': 'access',
+                        'exp': datetime.utcnow() + timedelta(days=1)
+                    }
 
-                return Response({
-                    'access_token': str(access_token),
-                    'refresh_token': str(refresh_token),
-                }, status=status.HTTP_200_OK)
+                    access_token = PyJWT().encode(access_payload, key, algorithm='HS256')
 
-    return JsonResponse({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+                    return Response({
+                        'access_token': str(access_token),
+                        'refresh_token': str(refresh_token),
+                    }, status=status.HTTP_200_OK)
+
+        return JsonResponse({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)

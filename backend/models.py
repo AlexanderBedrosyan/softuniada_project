@@ -17,7 +17,7 @@ class User(models.Model):
     CITIES = information_cities()
 
     username = models.CharField(max_length=100)
-    email = models.EmailField(validators=[EmailValidator(message='Enter a valid email address.')])
+    email = models.EmailField(validators=[EmailValidator(message='Enter a valid email address.')], unique=True)
     password = models.CharField(max_length=128)
     city = models.CharField(max_length=120, choices=CITIES, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
