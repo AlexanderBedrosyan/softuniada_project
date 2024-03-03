@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) => {
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem("authTokens");
-    router.push("/login");
+    router.push("/log-in");
   };
 
   const contextData = {

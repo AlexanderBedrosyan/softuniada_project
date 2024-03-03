@@ -61,6 +61,8 @@ const LoginPage = () => {
             setUsername={setUsername}
             setPassword={setPassword}
             errors={errors}
+            username={username}
+            password={password}
           />
           <SubmitButton isLoading={isLoading} />
         </form>
