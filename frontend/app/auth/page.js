@@ -1,5 +1,9 @@
 const AuthPage = () => {
-  return <div>YOU DONT HAVE ACCESS</div>;
+  return (
+    <div>
+      <p>YOU DONT HAVE ACCESS</p>
+    </div>
+  );
 };
 
 export default AuthPage;
