@@ -52,3 +52,17 @@ class BookModelTest(TestCase):
 
         Book.objects.get(title='Real Estate2').delete()
         self.assertEqual(len(Book.objects.all()), 2)
+
+    def test_dunder_method_str(self):
+        new_book = Book.objects.create(title='Real Estate', author='Grant Cardone')
+        self.assertEqual(str(new_book), "'Real Estate', author: Grant Cardone")
+        new_book.title = 1
+        self.assertEqual(str(new_book), "'1', author: Grant Cardone")
+        new_book.title = ''
+        self.assertEqual(str(new_book), "'', author: Grant Cardone")
+
+        new_book1 = Book.objects.create(author='Test')
+        self.assertEqual(str(new_book1), "'', author: Test")
+
+        new_book2 = Book.objects.create(title='test')
+        self.assertEqual(str(new_book2), "'test', author: ")
