@@ -59,3 +59,11 @@ class UserModelTest(TestCase):
 
     def test_dunder_method_str(self):
         self.assertEqual(str(self.user), 'Mitre')
+        self.user.username = 'Grishe'
+        self.assertEqual(str(self.user), 'Grishe')
+
+        self.user.username = ""
+        self.assertEqual(str(self.user), "")
+
+        new_user = User.objects.create()
+        self.assertEqual(str(new_user), '')
