@@ -22,9 +22,17 @@ class LoginTests(TestCase):
         self.assertIn('access_token', response.data)
         self.assertIn('refresh_token', response.data)
 
-    def test_invalid_credentials(self):
+    def test_invalid_credentials_password(self):
         url = '/api/login/'
         data = {'email': 'test@example.com', 'password': 'wrongpassword'}
+        response = self.client.post(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual('Invalid credentials', response.json()['error'])
+
+    def test_invalid_credentials_email(self):
+        url = '/api/login/'
+        data = {'email': 'wrong@example.com', 'password': 'password123'}
         response = self.client.post(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
