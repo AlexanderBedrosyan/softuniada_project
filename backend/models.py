@@ -28,7 +28,6 @@ class User(models.Model):
     def __str__(self):
         return f"{self.username}"
 
-
 class Rating(models.Model):
 
     user = models.ManyToManyField(to=User)
@@ -44,3 +43,4 @@ class Rating(models.Model):
 
     def __str__(self):
         return f"Average Rating for User: {self.average_rating():.2f}"
+
