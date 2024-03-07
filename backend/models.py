@@ -1,6 +1,9 @@
 from django.core.validators import EmailValidator
 from django.db import models
+from django.db.models import Avg, Sum
+
 from .information.cities import information_cities
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 
@@ -24,3 +27,20 @@ class User(models.Model):
 
     def __str__(self):
         return f"{self.username}"
+
+
+class Rating(models.Model):
+
+    user = models.ManyToManyField(to=User)
+    rating = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )
+
+    def average_rating(self):
+        votes_count = Rating.objects.filter(user=self.user.first()).count()
+        total_rating_sum = Rating.objects.filter(user=self.user.first()).aggregate(Sum('rating'))['rating__sum'] or 0
+        rating = total_rating_sum / votes_count
+        return rating
+
+    def __str__(self):
+        return f"Average Rating for User: {self.average_rating():.2f}"
