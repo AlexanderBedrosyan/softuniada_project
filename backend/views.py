@@ -77,3 +77,20 @@ class Login(APIView):
                     }, status=status.HTTP_200_OK)
 
         return JsonResponse({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class UpdateUser(APIView):
+
+    def post(self, request, *args, **kwargs):
+        email = request.data.get('email')
+        pictureLink = request.data.get('picture')
+        description = request.data.get('description')
+        all_usernames = User.objects.values_list('email', flat=True)
+
+        if email in all_usernames:
+            user = User.objects.get(email=email)
+            user.description = description
+            user.picture = pictureLink
+            return Response({"message": "User published successfully"})
+
+        return JsonResponse({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
