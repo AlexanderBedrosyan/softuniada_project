@@ -24,4 +24,4 @@ FROM preparations AS final
 
 EXPOSE 80
 
-CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:80 backend.wsgi:application"]
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:80 softuniada_project.wsgi:application"]

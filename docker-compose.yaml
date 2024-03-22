@@ -10,28 +10,59 @@
 #      source: /var/run/docker.sock
 #      target: /var/run/docker.sock
 
-version: '3.9'
+version: '3.8'
+
 services:
+
   postgredb:
-      image: postgres
-      container_name: postgresql_db
-      ports:
-        - "5432:5432"
-      volumes:
-        - ./:/postgresql:/var/lib/postgresql/data
-      networks:
-        - backend-network
-      restart: on-failure
-      environment:
-        - POSTGRES_PASSWORD=password
-        - POSTGRES_USER=postgres-user
-        - POSTGRES_DB=softuni_project
-        - PGDATA=/var/lib/postgresql/data/pgdata
+    image: postgres
+    container_name: postgresql_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./:/postgresql:/var/lib/postgresql/data
+    networks:
+      - backend-network
+    restart: on-failure
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres-user
+      - POSTGRES_DB=softuni_project
+      - PGDATA=/var/lib/postgresql/data/pgdata
+
+  backend:
+    depends_on:
+      - postgredb
+    image: backend-softuni:v01
+    build:
+      dockerfile: Dockerfile
+    container_name: backend-softuni
+    ports:
+      - "8000:80"
+    networks:
+      - backend-network
+      - frontend-network
+    restart: on-failure
+
+  frontend:
+    image: frontend-softuni:v01
+    build:
+      dockerfile: ./frontend/Dockerfile
+    ports:
+      - "3000:81"
+    container_name: frontend-softuni
+    networks:
+      - frontend-network
+    restart: on-failure
+    depends_on:
+      - backend
 
 volumes:
   postgresql:
     name: postgresql
 
 networks:
+  frontend-network:
+    name: frontend-network
   backend-network:
     name: backend-network
