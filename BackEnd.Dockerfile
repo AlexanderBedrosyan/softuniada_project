@@ -24,6 +24,4 @@ FROM preparations AS final
 
 EXPOSE 80
 
-#CMD ["sh", "-c", "daphne --bind 0.0.0.0:81 backend.asgi:application"]
-CMD ["sh", "-c", "python manage.py runserver"]
-#CMD ["sh", "-c", "daphne --bind 0.0.0.0:8000 backend.asgi:application & exec celery -A backend worker -l info -B"]
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:80 backend.wsgi:application"]
