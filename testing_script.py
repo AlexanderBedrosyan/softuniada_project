@@ -18,10 +18,13 @@ from backend.models import User, Rating
 # Create queries within functions
 
 # Avarage rating
-# user = User.objects.get(username='Kaloqn')
-# rating_instance = Rating.objects.create(rating=3)
-# rating_instance.user.add(user)
-#
-# user_rating = Rating.objects.filter(user=user).first()
-# average_rating = user_rating.average_rating()
-# print(f"{Rating.objects.filter(user=user).first()}")
+User.objects.create(username='marin', email='marin@marin.com', password='Blas@2352354')
+
+user = User.objects.get(username='admin')
+print(user)
+rating_instance = Rating.objects.create(rating=3)
+rating_instance.user.add(user)
+
+user_rating = Rating.objects.filter(user=user).first()
+average_rating = user_rating.average_rating()
+print(f"{Rating.objects.filter(user=user).first()}")
