@@ -37,20 +37,25 @@ class Rating(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(5)]
     )
 
-    def average_rating(self):
-        all_users = self.user.through
-        ratings_by_user = all_users.objects.filter(user=self)
-        voters = [rating.user for rating in ratings_by_user]
-
-        votes_count = Rating.objects.filter(user=self.user.first()).count()
-        total_rating_sum = Rating.objects.filter(user=self.user.first()).aggregate(Sum('rating'))['rating__sum'] or 0
-        rating = total_rating_sum / votes_count
-        return rating
+    def average_rating(self, user):
+        all_ratings = Rating.objects.filter(user=user)
+        total_rating_sum = sum(rating.rating for rating in all_ratings)
+        votes_count = all_ratings.count()
+        average_rating = total_rating_sum / votes_count if votes_count > 0 else 0
+        # all_users = self.user.through
+        # ratings_by_user = all_users.objects.filter(user=self)
+        # voters = [rating.user for rating in ratings_by_user]
+        #
+        # votes_count = Rating.objects.filter(user=self.user.first()).count()
+        # total_rating_sum = Rating.objects.filter(user=self.user.first()).aggregate(Sum('rating'))['rating__sum'] or 0
+        # rating = total_rating_sum / votes_count
+        return average_rating
 
     def __str__(self):
-        return f"Average Rating for User: {self.average_rating():.2f}"
+        return f"Average Rating for User: {3:.2f}"
 
 
 class Voter(models.Model):
     voter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='voters')
     voted_user = models.ForeignKey(Rating, on_delete=models.CASCADE, related_name='voted_users')
+    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])

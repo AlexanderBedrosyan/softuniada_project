@@ -13,13 +13,26 @@ django.setup()
 # Import your models here
 
 
-from backend.models import User, Rating
+from backend.models import User, Rating, Voter
 
 # Create queries within functions
 
 # Avarage rating
-# user = User.objects.get(username='Kaloqn')
-# user1 = User.objects.get(username='Alexander')
+Rating.objects.all().delete()
+
+user = User.objects.get(username='Kaloqn')
+user1 = User.objects.get(username='Alexander')
+user2 = User.objects.get(username='Dragomir')
+
+rating_user = Rating.objects.get(user=user)
+Voter.objects.create(voter=user1, voted_user=rating_user, rating=4)
+Voter.objects.create(voter=user2, voted_user=rating_user, rating=3)
+
+
+#
+# all_ratings = Rating.objects.filter(user=user)
+# print(all_ratings)
+
 # rating_instance = Rating.objects.create(rating=5)
 # rating_instance.user.add(user1)
 #
@@ -29,4 +42,4 @@ from backend.models import User, Rating
 # print(f"{Rating.objects.filter(user=user).first()}")
 # print(user_rating.user.all())
 # print(average_rating)
-Rating.objects.all()
+
