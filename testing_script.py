@@ -19,9 +19,14 @@ from backend.models import User, Rating
 
 # Avarage rating
 # user = User.objects.get(username='Kaloqn')
-# rating_instance = Rating.objects.create(rating=3)
-# rating_instance.user.add(user)
+# user1 = User.objects.get(username='Alexander')
+# rating_instance = Rating.objects.create(rating=5)
+# rating_instance.user.add(user1)
 #
-# user_rating = Rating.objects.filter(user=user).first()
+# user_rating = Rating.objects.filter(user=user1).first().average_rating(user1)
+# print(user_rating)
 # average_rating = user_rating.average_rating()
 # print(f"{Rating.objects.filter(user=user).first()}")
+# print(user_rating.user.all())
+# print(average_rating)
+Rating.objects.all()
