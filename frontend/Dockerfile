@@ -16,5 +16,5 @@ RUN npm run build
 
 FROM builder AS final
 
-EXPOSE 81
-CMD ["next", "dev", "-p", "81"]
+EXPOSE 80
+CMD ["next", "dev", "-p", "80"]
