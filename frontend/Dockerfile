@@ -1,4 +1,4 @@
-FROM node:21-alpine3.17 AS base
+FROM node:20-buster-slim AS base
 WORKDIR /app
 
 FROM base AS builder
