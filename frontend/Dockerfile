@@ -7,11 +7,11 @@ RUN apk add --update xdg-utils
 
 ENV PATH /app/node_modules/.bin:$PATH
 
-COPY frontend/package.json /app/
-COPY frontend/package-lock.json /app/
+COPY package.json /app/
+COPY package-lock.json /app/
 
 RUN npm install --silent
-COPY frontend/ /app/
+COPY . /app/
 RUN npm run build
 
 FROM builder AS final
