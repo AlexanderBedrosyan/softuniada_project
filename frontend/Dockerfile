@@ -1,9 +1,9 @@
-FROM node:20-buster-slim AS base
+FROM node:21-bullseye-slim AS base
 WORKDIR /app
 
 FROM base AS builder
 
-RUN apk add --update xdg-utils
+#RUN apk add --update xdg-utils
 
 ENV PATH /app/node_modules/.bin:$PATH
 
