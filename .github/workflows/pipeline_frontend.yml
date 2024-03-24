@@ -23,6 +23,15 @@ jobs:
     steps:
       - name: CheckoutCode
         uses: actions/checkout@v3
+      - name: Use Node.js 21.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 21.x
+          cache: "npm"
+      - name: Build & install dependencies
+        run: npm install
+      - name: Run WebApplication
+        run: npm run dev
 
 
   deploy:
