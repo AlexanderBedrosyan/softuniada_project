@@ -35,7 +35,10 @@ jobs:
       - name: Build & install dependencies
         run: npm install
       - name: Run WebApplication
-        run: npm run dev
+        run: npm run dev &
+      - name: Run Get Request
+        run: | 
+            curl http://localhost:3000
 
 
   deploy:

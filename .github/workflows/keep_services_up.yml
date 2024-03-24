@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - DevOps
+    paths-ignore:
+       - '**'
+
+
 #  schedule:
 #    - cron: '*/10 * * * *'
 #  workflow_dispatch:
