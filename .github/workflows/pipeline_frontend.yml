@@ -14,13 +14,13 @@ on:
     paths:
       - 'frontend/**'
       - '.github/workflows/pipeline_frontend.yml'
-defaults:
- run:
-  working-directory: ./frontend
+
 
 jobs:
   build-frontend:
-
+    defaults:
+      run:
+        working-directory: 'frontend'
     runs-on: ubuntu-latest
 
     steps:
@@ -31,6 +31,7 @@ jobs:
         with:
           node-version: 21.x
           cache: "npm"
+          cache-dependency-path: '**/package-lock.json'
       - name: Build & install dependencies
         run: npm install
       - name: Run WebApplication
