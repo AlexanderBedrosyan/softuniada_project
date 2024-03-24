@@ -43,5 +43,5 @@ RUN python manage.py migrate
 
 FROM preparations AS final
 
-EXPOSE 443
-CMD ["sh", "-c", "gunicorn softuniada_project.wsgi:application"]
+EXPOSE 80
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:80 softuniada_project.wsgi:application"]
