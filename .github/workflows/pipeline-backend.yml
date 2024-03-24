@@ -19,8 +19,8 @@ env:
   DB_NAME: softuni_project
   DB_USER: AdminUserDB
   DB_PASSWORD: Stro0ng@Passw0rd
-  DB_HOST: postgres
-  DB_PORT: ${{ job.services.postgres.ports[5432] }}
+  DB_HOST: ${{ job.services.postgres.host }}
+  DB_PORT: ${{ job.services.postgres.ports }}
   CORS_ALLOWED_ORIGINS: http://localhost:3000 https://soft-vrlm.vercel.app
 
 jobs:
