@@ -7,3 +7,7 @@
 /frontend/.idea
 /envs
 *.pyc
+backend/__pycache__/views.cpython-311.pyc
+backend/migrations/__pycache__/0001_initial.cpython-311.pyc
+softuniada_project/__pycache__/settings.cpython-311.pyc
+softuniada_project/__pycache__/urls.cpython-311.pyc
