@@ -6,12 +6,13 @@ on:
       - DevOps
     paths:
       - 'frontend/**'
+      - '.github/workflows/pipeline_frontend.yml'
   pull_request:
     branches:
       - DevOps
     paths:
       - 'frontend/**'
-
+      - '.github/workflows/pipeline_frontend.yml'
 
 
 jobs:
