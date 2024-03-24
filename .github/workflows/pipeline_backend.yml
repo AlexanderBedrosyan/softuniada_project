@@ -78,6 +78,6 @@ jobs:
       - name: Deploy to production in Render.com
         uses: johnbeynon/render-deploy-action@v0.0.8
         with:
-          service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
+          service-id: ${{ secrets.BACKEND_SERVICE_ID }}
           api-key: ${{ secrets.MY_RENDER_API_KEY }}
     needs: build-and-test-backend
