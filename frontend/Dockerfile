@@ -7,14 +7,14 @@ FROM base AS builder
 
 ENV PATH /app/node_modules/.bin:$PATH
 
-COPY package.json /app/
-COPY package-lock.json /app/
+COPY frontend/package.json /app/
+COPY frontend/package-lock.json /app/
 
 RUN npm install --silent
-COPY . /app/
+COPY frontend/ /app/
 RUN npm run build
 
 FROM builder AS final
 
-EXPOSE 10000
-CMD ["next", "dev", "-p", "10000"]
+EXPOSE 81
+CMD ["next", "dev", "-p", "81"]

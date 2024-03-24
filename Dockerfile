@@ -4,6 +4,7 @@ WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV DJANGO_SETTINGS_MODULE=softuniada_project.settings
 
 FROM base AS builder
 
@@ -13,7 +14,7 @@ RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
-RUN rm -rf /app/frontend
+#RUN rm -rf /app/frontend
 
 FROM builder AS preparations
 
