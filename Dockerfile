@@ -29,6 +29,7 @@ ENV DJANGO_SETTINGS_MODULE=softuniada_project.settings
 FROM base AS builder
 
 COPY requirements.txt /app/
+COPY staticfiles /app/
 
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
@@ -43,6 +44,5 @@ RUN python manage.py migrate
 
 FROM preparations AS final
 
-EXPOSE 80
 
-CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:80 softuniada_project.wsgi:application"]
+CMD ["sh", "-c", "gunicorn softuniada_project.wsgi:application"]
