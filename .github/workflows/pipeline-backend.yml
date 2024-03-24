@@ -37,25 +37,17 @@ jobs:
           POSTGRES_USER: ${{ env.DB_USER }}
         ports:
           - 5432:5432
-        # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
 
     steps:
-#      - name: Setup PostgreSQL for build & tests
-#        uses: Harmon758/postgresql-action@v1.0.0
-#        with:
-#          postgresql version: 12
-#          postgresql db:
-#            POSTGRES_DB=${{ env.DB_NAME }}
-#          postgresql user:
-#            POSTGRES_USER=${{ env.DB_USER }}
-#          postgresql password:
-#            POSTGRES_PASSWORD=${{ env.DB_PASSWORD }}
-      - name: Wait DB 60 seconds
-        run: sleep 60
+      - name: Wait for PostgreSQL to start
+        run: |
+          until docker exec $(docker ps -q --filter "name=postgres") pg_isready; do
+              sleep 2
+          done
       - name: CheckoutCode
         uses: actions/checkout@v3
       - name: Set up Python 3.11
