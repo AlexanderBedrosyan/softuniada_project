@@ -1,0 +1,35 @@
+name: CI/CD workflow for FrontEnd
+
+on:
+  push:
+    branches:
+      - DevOps
+    paths:
+      - 'frontend/**'
+  pull_request:
+    branches:
+      - DevOps
+    paths:
+      - 'frontend/**'
+
+
+
+jobs:
+  build-frontend:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: CheckoutCode
+        uses: actions/checkout@v3
+
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to production in Render.com
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.MY_RENDER_API_KEY }}
+    needs: build-and-test-backend
