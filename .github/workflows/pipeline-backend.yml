@@ -2,9 +2,16 @@ name: CI/CD workflow for BackEnd
 
 on:
   push:
-    branches: [ "DevOps" ]
+    branches:
+      - DevOps
+    paths-ignore:
+      - 'frontend/**'
   pull_request:
-    branches: [ "DevOps" ]
+    branches:
+      - DevOps
+    paths-ignore:
+      - 'frontend/**'
+
 env:
   DB_NAME: ${{ secrets.DB_NAME }}
   DB_USER: ${{ secrets.DB_USER }}

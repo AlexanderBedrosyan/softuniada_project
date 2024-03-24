@@ -6,3 +6,4 @@
 .yarn/install-state.gz
 /frontend/.idea
 /envs
+*.pyc
