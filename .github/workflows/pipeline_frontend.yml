@@ -14,7 +14,9 @@ on:
     paths:
       - 'frontend/**'
       - '.github/workflows/pipeline_frontend.yml'
-
+defaults:
+ run:
+  working-directory: ./frontend
 
 jobs:
   build-frontend:
@@ -23,19 +25,15 @@ jobs:
 
     steps:
       - name: CheckoutCode
-        working-directory: frontend/
         uses: actions/checkout@v3
       - name: Use Node.js 21.x
-        working-directory: frontend/
         uses: actions/setup-node@v3
         with:
           node-version: 21.x
           cache: "npm"
       - name: Build & install dependencies
-        working-directory: frontend/
         run: npm install
       - name: Run WebApplication
-        working-directory: frontend/
         run: npm run dev
 
 
