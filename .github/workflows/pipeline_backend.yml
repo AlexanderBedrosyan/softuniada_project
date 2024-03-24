@@ -7,12 +7,15 @@ on:
     paths-ignore:
       - 'frontend/**'
       - '.github/workflows/pipeline_frontend.yml'
+      - '.github/workflows/keep_services_up.yml'
   pull_request:
     branches:
       - DevOps
     paths-ignore:
       - 'frontend/**'
       - '.github/workflows/pipeline_frontend.yml'
+      - '.github/workflows/keep_services_up.yml'
+
 
 env:
   SECRET_KEY: 'django-insecure-a6^74w0ypqs9ekp#yut_+)3higc9$48#s1e)_*4lmls7#1cxza'
