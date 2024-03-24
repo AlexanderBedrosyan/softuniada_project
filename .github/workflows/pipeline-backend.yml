@@ -9,7 +9,7 @@ env:
   DB_NAME: ${{ secrets.DB_NAME }}
   DB_USER: ${{ secrets.DB_USER }}
   DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-
+  DEBUG: 0
 
 jobs:
   build-and-test-backend:
@@ -22,11 +22,11 @@ jobs:
         with:
           postgresql version: 12
           postgresql db:
-            POSTGRES_DB=${{ secrets.DB_NAME }}
+            POSTGRES_DB=sometestdbname
           postgresql user:
-            POSTGRES_USER=${{ secrets.DB_USER }}
+            POSTGRES_USER=dbtestadmin
           postgresql password:
-            POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }}
+            POSTGRES_PASSWORD=Stro0ng@Passw0rd
 
       - name: CheckoutCode
         uses: actions/checkout@v3
