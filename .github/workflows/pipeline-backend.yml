@@ -15,10 +15,10 @@ on:
 env:
   SECRET_KEY: 'django-insecure-a6^74w0ypqs9ekp#yut_+)3higc9$48#s1e)_*4lmls7#1cxza'
   DEBUG: 0
-  ALLOWED_HOSTS: 127.0.0.1 localhost host.docker.internal https://softuniada-project-backend.onrender.com/
+  ALLOWED_HOSTS: 127.0.0.1 localhost host.docker.internal https://softuniada-project-backend.onrender.com
   DB_NAME: softuni_project
   DB_USER: postgres-user
-  DB_PASSWORD: password
+  DB_PASSWORD: Stro0ng@Passw0rd
   DB_HOST: localhost
   DB_PORT: 5432
   CORS_ALLOWED_ORIGINS: http://localhost:3000 https://soft-vrlm.vercel.app
@@ -34,11 +34,11 @@ jobs:
         with:
           postgresql version: 12
           postgresql db:
-            POSTGRES_DB=sometestdbname
+            POSTGRES_DB=${{ env.DB_NAME }}
           postgresql user:
-            POSTGRES_USER=dbtestadmin
+            POSTGRES_USER=${{ env.DB_USER }}
           postgresql password:
-            POSTGRES_PASSWORD=Stro0ng@Passw0rd
+            POSTGRES_PASSWORD=${{ env.DB_PASSWORD }}
 
       - name: CheckoutCode
         uses: actions/checkout@v3
