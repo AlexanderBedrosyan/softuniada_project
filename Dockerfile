@@ -29,7 +29,6 @@ ENV DJANGO_SETTINGS_MODULE=softuniada_project.settings
 FROM base AS builder
 
 COPY requirements.txt /app/
-COPY staticfiles /app/
 
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt

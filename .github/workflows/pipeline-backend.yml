@@ -13,10 +13,15 @@ on:
       - 'frontend/**'
 
 env:
-  DB_NAME: ${{ secrets.DB_NAME }}
-  DB_USER: ${{ secrets.DB_USER }}
-  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+  SECRET_KEY: 'django-insecure-a6^74w0ypqs9ekp#yut_+)3higc9$48#s1e)_*4lmls7#1cxza'
   DEBUG: 0
+  ALLOWED_HOSTS: 127.0.0.1 localhost host.docker.internal https://softuniada-project-backend.onrender.com/
+  DB_NAME: softuni_project
+  DB_USER: postgres-user
+  DB_PASSWORD: password
+  DB_HOST: localhost
+  DB_PORT: 5432
+  CORS_ALLOWED_ORIGINS: http://localhost:3000 https://soft-vrlm.vercel.app
 
 jobs:
   build-and-test-backend:
