@@ -18,23 +18,22 @@ on:
 
 jobs:
   build-frontend:
+
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend/
 
     steps:
       - name: CheckoutCode
         uses: actions/checkout@v3
-
       - name: Use Node.js 21.x
         uses: actions/setup-node@v3
         with:
           node-version: 21.x
           cache: "npm"
       - name: Build & install dependencies
+        working-directory: /home/runner/work/softuniada_project/softuniada_project/frontend
         run: npm install
       - name: Run WebApplication
+        working-directory: /home/runner/work/softuniada_project/softuniada_project/frontend
         run: npm run dev
 
 
