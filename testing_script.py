@@ -18,15 +18,18 @@ from backend.models import User, Rating, Voter
 # Create queries within functions
 
 # Avarage rating
-Rating.objects.all().delete()
+# Rating.objects.all().delete()
 
 user = User.objects.get(username='Kaloqn')
 user1 = User.objects.get(username='Alexander')
 user2 = User.objects.get(username='Dragomir')
 
-rating_user = Rating.objects.get(user=user)
-Voter.objects.create(voter=user1, voted_user=rating_user, rating=4)
-Voter.objects.create(voter=user2, voted_user=rating_user, rating=3)
+
+rating_instance = Rating.objects.create(rating=3)
+rating_instance2 = Rating.objects.create(rating=4)
+
+Voter.objects.create(voter=user1, voted_user=rating_instance, id_voted_user=user, rating=rating_instance.rating)
+Voter.objects.create(voter=user2, voted_user=rating_instance2, id_voted_user=user, rating=rating_instance2.rating)
 
 
 #

@@ -58,4 +58,5 @@ class Rating(models.Model):
 class Voter(models.Model):
     voter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='voters')
     voted_user = models.ForeignKey(Rating, on_delete=models.CASCADE, related_name='voted_users')
+    id_voted_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='id_voted_user')
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
