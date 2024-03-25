@@ -51,9 +51,9 @@ jobs:
       - name: Vercel Actions
         uses: nexterias/actions-vercel@v1.0.3
         with:
-          token: ${{ secrets.VERCEL_TOKEN }}
-          project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          org-id:  ${{ secrets.VERCEL_USER_ID }}
+          token: ${{ secrets.MY_VERCEL_TOKEN }}
+          project-id: ${{ secrets.MY_VERCEL_PROJECT_ID }}
+          org-id:  ${{ secrets.MY_VERCEL_USER_ID }}
           github-token: ${{ secrets.MY_PERSONAL_GH_TOKEN }}
           production: true
           public: true
