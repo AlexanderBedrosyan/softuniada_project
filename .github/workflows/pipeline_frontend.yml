@@ -3,14 +3,14 @@ name: CI/CD workflow for FrontEnd
 on:
   push:
     branches:
-      - DevOps
+      - master
     paths:
       - 'frontend/**'
       - '.github/workflows/pipeline_frontend.yml'
 
   pull_request:
     branches:
-      - DevOps
+      - master
     paths:
       - 'frontend/**'
       - '.github/workflows/pipeline_frontend.yml'
@@ -37,7 +37,7 @@ jobs:
       - name: Run WebApplication
         run: npm run dev &
       - name: Wait service to start
-        run: sleep 5
+        run: sleep 10
       - name: Run Get Request
         run: | 
             curl http://localhost:3000

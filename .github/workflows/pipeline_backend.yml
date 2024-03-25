@@ -3,14 +3,15 @@ name: CI/CD workflow for BackEnd
 on:
   push:
     branches:
-      - DevOps
+      - master
     paths-ignore:
       - 'frontend/**'
       - '.github/workflows/pipeline_frontend.yml'
       - '.github/workflows/keep_services_up.yml'
+
   pull_request:
     branches:
-      - DevOps
+      - master
     paths-ignore:
       - 'frontend/**'
       - '.github/workflows/pipeline_frontend.yml'
