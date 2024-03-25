@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
       const data = await response.json();
 
       if (!response.ok) {
-        // Handle non-successful response status
+        // Handle non-successful response status (e.g., 400, 401, etc.)
         throw new Error(data.message || "Login failed");
       }
 
@@ -47,8 +47,9 @@ export const AuthProvider = ({ children }) => {
 
       router.push("/home");
     } catch (error) {
+      // Handle fetch or other errors
       console.error("Login failed:", error.message);
-
+      // You might want to set some state here to indicate the error to the user
       setWrongPassword(wrongPassword);
     }
   };

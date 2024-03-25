@@ -24,6 +24,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    console.log("here");
 
     // Validate form inputs
     const inputData = { username, password };

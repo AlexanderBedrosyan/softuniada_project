@@ -1,3 +1,4 @@
+import json
 from datetime import datetime, timedelta
 
 from django.contrib.auth.hashers import make_password, check_password
@@ -75,7 +76,7 @@ class Login(APIView):
                         'refresh_token': str(refresh_token),
                     }, status=status.HTTP_200_OK)
 
-        return JsonResponse({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        return JsonResponse({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class UpdateUser(APIView):
