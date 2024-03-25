@@ -3,7 +3,20 @@
 import os
 import sys
 
+import re
 
+
+def load_env():
+    try:
+        with open("./envs/our_project.env") as f:
+            content = f.read()
+    except IOError:
+        content = ""
+    for line in content.splitlines():
+        m = re.match(r"\A([A-Za-z_0-9]+)=(.*)\Z", line)
+        if m:
+            key, val = m.group(1), m.group(2)
+            os.environ.setdefault(key, val)
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'softuniada_project.settings')
@@ -19,4 +32,5 @@ def main():
 
 
 if __name__ == '__main__':
+    load_env()
     main()
