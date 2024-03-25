@@ -43,12 +43,18 @@ jobs:
             curl http://localhost:3000
 
 
-  deploy:
+  deploy-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to production in Render.com
-        uses: johnbeynon/render-deploy-action@v0.0.8
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+      - name: Vercel Actions
+        uses: nexterias/actions-vercel@v1.0.3
         with:
-          service-id: ${{ secrets.FRONTEND_SERVICE_ID }}
-          api-key: ${{ secrets.MY_RENDER_API_KEY }}
+          token: ${{ secrets.VERCEL_TOKEN }}
+          project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          org-id:  ${{ secrets.VERCEL_USER_ID }}
+          github-token: ${{ secrets.MY_PERSONAL_GH_TOKEN }}
+          production: true
+          public: true
     needs: build-frontend
