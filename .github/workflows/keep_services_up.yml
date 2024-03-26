@@ -11,8 +11,6 @@ jobs:
   Keep-It-Alive:
     runs-on: ubuntu-latest
     steps:
-      - name: Echo Test
-        run: echo TestTest
       - name: Keep WebApp alive
         run: |
             echo "Execute first GET requests to BE"
