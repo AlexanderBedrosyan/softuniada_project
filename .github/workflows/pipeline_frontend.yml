@@ -57,4 +57,4 @@ jobs:
           github-token: ${{ secrets.MY_PERSONAL_GH_TOKEN }}
           production: true
           public: true
-    needs: build-frontend
+    needs: build-test-frontend
