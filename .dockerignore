@@ -1,0 +1,7 @@
+/venv/
+/.idea
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+backend/migrations/00*.py

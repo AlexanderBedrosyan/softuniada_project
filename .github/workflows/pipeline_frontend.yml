@@ -1,0 +1,60 @@
+name: CI/CD workflow for FrontEnd
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/pipeline_frontend.yml'
+
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/pipeline_frontend.yml'
+
+
+jobs:
+  build-frontend:
+    defaults:
+      run:
+        working-directory: 'frontend'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: CheckoutCode
+        uses: actions/checkout@v3
+      - name: Use Node.js 21.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 21.x
+          cache: "npm"
+          cache-dependency-path: '**/package-lock.json'
+      - name: Build & install dependencies
+        run: npm install
+      - name: Run WebApplication
+        run: npm run dev &
+      - name: Wait service to start
+        run: sleep 10
+      - name: Run Get Request
+        run: | 
+            curl http://localhost:3000
+
+
+  deploy-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+      - name: Vercel Actions
+        uses: nexterias/actions-vercel@v1.0.3
+        with:
+          token: ${{ secrets.MY_VERCEL_TOKEN }}
+          project-id: ${{ secrets.MY_VERCEL_PROJECT_ID }}
+          org-id:  ${{ secrets.MY_VERCEL_USER_ID }}
+          github-token: ${{ secrets.MY_PERSONAL_GH_TOKEN }}
+          production: true
+          public: true
+    needs: build-frontend

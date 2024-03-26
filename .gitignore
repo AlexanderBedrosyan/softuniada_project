@@ -1,0 +1,10 @@
+/venv/
+/.idea
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+/frontend/.idea
+/envs
+*.pyc
+envs.zip
