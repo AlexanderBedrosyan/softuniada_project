@@ -17,7 +17,7 @@ on:
 
 
 jobs:
-  build-frontend:
+  build-test-frontend:
     defaults:
       run:
         working-directory: 'frontend'
@@ -43,12 +43,12 @@ jobs:
             curl http://localhost:3000
 
 
-  deploy-test:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Install Vercel CLI
         run: npm install -g vercel
-      - name: Vercel Actions
+      - name: Vercel Actions - Deploy to Vercel
         uses: nexterias/actions-vercel@v1.0.3
         with:
           token: ${{ secrets.MY_VERCEL_TOKEN }}
