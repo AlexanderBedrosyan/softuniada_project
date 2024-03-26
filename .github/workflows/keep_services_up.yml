@@ -15,7 +15,6 @@ jobs:
         run: echo TestTest
       - name: Keep WebApp alive
         run: |
-          do
             echo "Execute first GET requests to BE"
             response=$(curl -sS https://softuniada-project-backend.onrender.com/)
             echo "Request done"
@@ -26,7 +25,6 @@ jobs:
             echo "Wait 5 seconds before next request"
             sleep 5
             echo "GET Request operation was successful"
-          done
 
       - name: Delete old scheduled workflow runs
         uses: MajorScruffy/delete-old-workflow-runs@v0.3.0
