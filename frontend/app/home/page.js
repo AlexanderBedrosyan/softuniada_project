@@ -4,6 +4,7 @@ import AuthContext from "@/contexts/authContext";
 import AuthPage from "../auth/page";
 import { useEffect, useState } from "react";
 import Nav from "../components/navBar/NavBar";
+import DataGridUsers from "@/app/components/DataGridUsers";
 
 const HomePage = () => {
   const { user } = useContext(AuthContext);
@@ -18,6 +19,7 @@ const HomePage = () => {
         ? isClient && (
             <div>
               <Nav />
+              <DataGridUsers/>
               <p>{`${user?.email}`}</p>{" "}
             </div>
           )

@@ -15,6 +15,19 @@
 #
 # from backend.models import User, Rating, Voter
 #
+# users = User.objects.all()
+# array_with_users = []
+# for user in users:
+#     current_obj = {}
+#     current_obj['name'] = user.username
+#     current_obj['city'] = user.city if user.city else 'Missing'
+#     current_obj['email'] = user.email
+#     current_obj['description'] = user.description if user.description else 'Missing'
+#     current_obj['picture'] = user.picture if user.picture else 'Missing'
+#     array_with_users.append(current_obj)
+#
+# print(type(json.dumps(array_with_users)))
+#
 # # Create queries within functions
 #
 # Avarage rating

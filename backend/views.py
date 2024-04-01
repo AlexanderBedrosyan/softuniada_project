@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from django.contrib.auth.hashers import make_password, check_password
 from django.http import JsonResponse
 from django.shortcuts import render
+from psycopg2.extensions import JSON
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
@@ -98,3 +99,21 @@ class UpdateUser(APIView):
             return Response({"message": "User published successfully"})
 
         return JsonResponse({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class FrontPage(APIView):
+
+    def get(self, request, *args, **kwargs):
+        users = User.objects.all()
+        array_with_users = []
+        for user in users:
+            current_obj = {}
+            current_obj['name'] = user.username
+            current_obj['city'] = user.city if user.city else 'Missing'
+            current_obj['email'] = user.email
+            current_obj['description'] = user.description if user.description else 'Missing'
+            current_obj['picture'] = user.picture if user.picture else 'Missing'
+            array_with_users.append(current_obj)
+
+        string_array = json.dumps(array_with_users)
+        return Response(string_array)
