@@ -48,8 +48,14 @@ jobs:
     steps:
       - name: Install Vercel CLI
         run: npm install -g vercel
+      - name: Copy desired files
+        run: |
+          mkdir deploy
+          cp -r frontend/* deploy/
       - name: Vercel Actions - Deploy to Vercel
+
         uses: nexterias/actions-vercel@v1.0.3
+        run: vercel --prod deploy/
         with:
           token: ${{ secrets.MY_VERCEL_TOKEN }}
           project-id: ${{ secrets.MY_VERCEL_PROJECT_ID }}
