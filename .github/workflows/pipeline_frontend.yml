@@ -49,7 +49,6 @@ jobs:
       - name: Install Vercel CLI
         run: npm install -g vercel
       - name: Vercel Actions - Deploy to Vercel
-
         uses: nexterias/actions-vercel@v1.0.3
         with:
           token: ${{ secrets.MY_VERCEL_TOKEN }}
