@@ -55,7 +55,6 @@ jobs:
       - name: Vercel Actions - Deploy to Vercel
 
         uses: nexterias/actions-vercel@v1.0.3
-        run: vercel --prod deploy/
         with:
           token: ${{ secrets.MY_VERCEL_TOKEN }}
           project-id: ${{ secrets.MY_VERCEL_PROJECT_ID }}
