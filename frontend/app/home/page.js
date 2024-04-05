@@ -19,8 +19,7 @@ const HomePage = () => {
         ? isClient && (
             <div>
               <Nav />
-              <DataGridUsers/>
-              <p>{`${user?.email}`}</p>{" "}
+              <DataGridUsers />
             </div>
           )
         : isClient && <AuthPage />}

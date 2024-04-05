@@ -114,12 +114,13 @@ class FrontPage(APIView):
         array_with_users = []
         for user in users:
             current_obj = {}
-            current_obj['name'] = user.username
-            current_obj['city'] = user.city if user.city else 'Missing'
-            current_obj['email'] = user.email
-            current_obj['description'] = user.description if user.description else 'Missing'
-            current_obj['picture'] = user.picture if user.picture else 'Missing'
+            current_obj["name"] = user.username
+            current_obj["city"] = user.city if user.city else "Missing"
+            current_obj["email"] = user.email
+            current_obj["description"] = user.description if user.description else "Missing"
+            current_obj["picture"] = user.picture if user.picture else "Missing"
             array_with_users.append(current_obj)
 
         string_array = json.dumps(array_with_users)
+
         return Response(string_array)
