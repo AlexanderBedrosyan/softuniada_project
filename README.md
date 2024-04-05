@@ -5,7 +5,7 @@ ____________________________________________
 
 BackEnd: [Link](https://softuniada-project-backend.onrender.com/)
 
-FrontEnd: [Link](https://soft-vrlm.vercel.app/)
+FrontEnd: [Link](https://softuniada-project.vercel.app/)
 
 ____________________________________________
 ### FRONTEND commands needed:
