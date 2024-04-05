@@ -78,7 +78,7 @@ SIMPLE_JWT = {
 
 JWT_SECRET_KEY = "some_random_string"
 
-# CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(" ")
+CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(" ")
 CORS_ALLOW_HEADERS = [
     'access-control-allow-origin',
     'authorization',
