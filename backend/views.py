@@ -99,9 +99,17 @@ class UpdateUser(APIView):
             user.city = city
             user.picture = pictureLink
             user.save()
-            return Response({"message": "User published successfully"})
+            return Response({"message": "User published successfully"}, status=status.HTTP_200_OK)
 
         return JsonResponse({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class GetSingleUser(APIView):
+    def post(self, request, *args, **kwargs):
+        email = request.data.get('email')
+        user = User.objects.get(email=email)
+        return Response({"picture": f"{user.picture}", "description": f"{user.description}", "city": f"{user.city}"},
+                        status=status.HTTP_200_OK)
 
 
 class FrontPage(APIView):
