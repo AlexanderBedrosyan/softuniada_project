@@ -55,6 +55,7 @@ class Login(APIView):
         if email and password:
             if email in all_usernames:
                 user = User.objects.get(email=email)
+                print(user.password)
                 if check_password(password, user.password):
                     refresh_payload = {
                         'user_id': user.id,
