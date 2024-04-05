@@ -27,15 +27,15 @@ function SettingsPage() {
     fetchData();
   }, []);
 
-  const handleRatingClick = async (userId, ratingValue) => {
+  const handleRatingClick = async (userEmail, ratingValue) => {
     try {
       // Make an API request to send the rating value to the backend
-      const response = await fetch(`/api/users/${userId}/ratings`, {
+      const response = await fetch(`/api/users/${userEmail}/ratings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ rating: ratingValue }),
+        body: JSON.stringify({ rating: ratingValue, userEmail: userEmail }),
       });
 
       if (!response.ok) {
@@ -43,10 +43,10 @@ function SettingsPage() {
       }
 
       console.log(
-        `Rating ${ratingValue} for user ${userId} sent to the backend successfully.`
+        `Rating ${ratingValue} for user ${userEmail} sent to the backend successfully.`
       );
     } catch (error) {
-      console.error("Error sending rating:", error);
+      console.error(`Error sending rating:${userEmail}:${ratingValue}`, error);
     }
   };
 
