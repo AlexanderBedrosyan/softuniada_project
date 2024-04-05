@@ -34,6 +34,7 @@ class Register(api_views.CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         data = request.data.copy()
+        print(data)
         if 'password' in data:
             data['password'] = make_password(data['password'])
             serializer = self.get_serializer(data=data)
@@ -55,6 +56,7 @@ class Login(APIView):
         if email and password:
             if email in all_usernames:
                 user = User.objects.get(email=email)
+                print(user.password)
                 if check_password(password, user.password):
                     refresh_payload = {
                         'user_id': user.id,

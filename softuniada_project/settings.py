@@ -80,12 +80,18 @@ JWT_SECRET_KEY = "some_random_string"
 
 CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(" ")
 CORS_ALLOW_HEADERS = [
-    'x-chainlit-thread-id',
     'access-control-allow-origin',
     'authorization',
     'user-env',
-    "x-chainlit-session-id",
-    "x-chainlit-chat-profile",
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
