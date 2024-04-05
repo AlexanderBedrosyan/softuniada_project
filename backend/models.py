@@ -31,10 +31,10 @@ class User(models.Model):
     def avg_rating(self):
         all_voters = 0
         if self.voters:
-            all_voters = len(self.voters.split(','))
+            all_voters = len(self.voters.split(',')) - 1
 
         if all_voters > 0 and self.rating > 0:
-            return int(self.rating / all_voters)
+            return round(self.rating / all_voters)
         return 0
 
     def __str__(self):

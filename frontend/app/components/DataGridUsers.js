@@ -3,6 +3,7 @@ import AuthContext from "@/contexts/authContext";
 import { GET_ALL_USERS } from "@/lib/constants";
 import { POST_RATING } from "@/lib/constants";
 import { Card, CardHeader, CardBody, ScrollShadow } from "@nextui-org/react";
+import { toast, Toaster } from 'react-hot-toast';
 
 function SettingsPage() {
   const { user } = useContext(AuthContext);
@@ -48,14 +49,11 @@ function SettingsPage() {
           voter_email,
         }),
       });
-      console.log(user)
       if (!response.ok) {
         throw new Error("Failed to send rating to the backend");
       }
-
-      console.log(
-        `Rating ${ratingValue} for user ${userEmail} sent to the backend successfully.`
-      );
+      const data = await response.json()
+     toast.success(data.message);
     } catch (error) {
       console.error(`Error sending rating:${userEmail}:${ratingValue}`, error);
     }
@@ -66,6 +64,7 @@ function SettingsPage() {
 
   return (
     <main className="container mx-auto px-4">
+      <Toaster />
       <h1 className="text-2xl font-bold my-4">Users</h1>
       <section className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
         {users.map(
@@ -88,7 +87,7 @@ function SettingsPage() {
                     <img
                       alt="Card background"
                       src={user.picture}
-                       className="w-full h-40 object-cover"
+                       className="w-full h-32 object-cover"
                     />
 
                     <h4 className="font-bold text-large">
