@@ -33,7 +33,7 @@ export default function Nav() {
           </NavbarItem>
           <NavbarItem isActive>
             <Link href="#" aria-current="page" color="secondary">
-              Customers
+              Brokers
             </Link>
           </NavbarItem>
           <NavbarItem>
