@@ -34,6 +34,7 @@ class Register(api_views.CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         data = request.data.copy()
+        print(data)
         if 'password' in data:
             data['password'] = make_password(data['password'])
             serializer = self.get_serializer(data=data)
