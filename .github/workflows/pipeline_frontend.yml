@@ -38,7 +38,7 @@ jobs:
         run: npm run dev &
       - name: Wait service to start
         run: sleep 10
-      - name: Run Get Request
+      - name: Run Test Request
         run: | 
             curl http://localhost:3000
 
@@ -71,6 +71,6 @@ jobs:
             github-token: ${{ secrets.MY_PERSONAL_GH_TOKEN }}
             production: true
             public: true
-            cwd: 'frontend'
+#            cwd: 'frontend'
 
     needs: build-test-frontend
