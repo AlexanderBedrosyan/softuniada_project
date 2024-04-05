@@ -44,6 +44,7 @@ jobs:
 
 
   deploy:
+    working-directory: frontend
     runs-on: ubuntu-latest
     permissions:
       contents: read
