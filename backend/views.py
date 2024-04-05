@@ -116,9 +116,11 @@ class FrontPage(APIView):
             current_obj["email"] = user.email
             current_obj["description"] = user.description if user.description else "Missing"
             current_obj["picture"] = user.picture if user.picture else "Missing"
+            current_obj["rating"] = user.avg_rating()
             array_with_users.append(current_obj)
 
-        string_array = json.dumps(array_with_users)
+        sorted_array = list(sorted(array_with_users, key=lambda x: -x["rating"]))
+        string_array = json.dumps(sorted_array)
 
         return Response(string_array)
 

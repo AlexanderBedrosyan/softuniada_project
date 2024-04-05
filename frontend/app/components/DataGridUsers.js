@@ -88,7 +88,7 @@ function SettingsPage() {
                     <img
                       alt="Card background"
                       src={user.picture}
-                      className="w-full h-full object-cover"
+                       className="w-full h-40 object-cover"
                     />
 
                     <h4 className="font-bold text-large">
@@ -100,38 +100,39 @@ function SettingsPage() {
                     {/* Rating Component */}
                     <div className="flex items-center mt-4">
                       {[1, 2, 3, 4, 5].map((rating) => (
-                        <button
-                          key={rating}
-                          className="mr-2 text-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          onClick={() => handleRatingClick(user.email, rating)}
-                        >
-                          {rating <= user.rating ? (
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-6 w-6 text-yellow-400"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M10 3.219l1.937 3.845 4.366.635a.5.5 0 0 1 .277.857l-3.158 2.901.747 4.394a.5.5 0 0 1-.723.527L10 14.303l-3.91 2.053a.5.5 0 0 1-.723-.526l.747-4.394-3.158-2.9a.5.5 0 0 1 .277-.857l4.366-.635L10 3.22z"
-                              />
-                            </svg>
-                          ) : (
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-6 w-6 text-gray-400"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M10 3.219l1.937 3.845 4.366.635a.5.5 0 0 1 .277.857l-3.158 2.901.747 4.394a.5.5 0 0 1-.723.527L10 14.303l-3.91 2.053a.5.5 0 0 1-.723-.526l.747-4.394-3.158-2.9a.5.5 0 0 1 .277-.857l4.366-.635L10 3.22z"
-                              />
-                            </svg>
-                          )}
-                        </button>
+                          <button
+                              key={rating}
+                              className="mr-2 text-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              onClick={() => handleRatingClick(user.email, rating)}
+                          >
+                            {rating <= user.rating ? (
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-6 w-6 text-yellow-400"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                  <path
+                                      fillRule="evenodd"
+                                      d="M10 3.219l1.937 3.845 4.366.635a.5.5 0 0 1 .277.857l-3.158 2.901.747 4.394a.5.5 0 0 1-.723.527L10 14.303l-3.91 2.053a.5.5 0 0 1-.723-.526l.747-4.394-3.158-2.9a.5.5 0 0 1 .277-.857l4.366-.635L10 3.22z"
+                                  />
+                                </svg>
+                            ) : (
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-6 w-6 text-gray-400"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                  <path
+                                      fillRule="evenodd"
+                                      d="M10 3.219l1.937 3.845 4.366.635a.5.5 0 0 1 .277.857l-3.158 2.901.747 4.394a.5.5 0 0 1-.723.527L10 14.303l-3.91 2.053a.5.5 0 0 1-.723-.526l.747-4.394-3.158-2.9a.5.5 0 0 1 .277-.857l4.366-.635L10 3.22z"
+                                  />
+                                </svg>
+                            )}
+                          </button>
                       ))}
+                      <span>{user.rating} / 5</span>
                     </div>
                   </CardBody>
                 </Card>

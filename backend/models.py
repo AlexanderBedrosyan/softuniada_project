@@ -24,7 +24,7 @@ class User(models.Model):
     password = models.CharField(max_length=128)
     city = models.CharField(max_length=120, choices=CITIES, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    picture = models.TextField(blank=True, null=True)
+    picture = models.TextField(blank=True, null=True, default='https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg')
     rating = models.IntegerField(blank=True, null=True)
     voters = models.TextField(blank=True, null=True)
 
