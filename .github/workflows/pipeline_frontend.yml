@@ -45,6 +45,12 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+      statuses: write
+      pull-requests: write
+
     steps:
       - name: Install Vercel CLI
         run: npm install -g vercel
@@ -57,6 +63,6 @@ jobs:
           github-token: ${{ secrets.MY_PERSONAL_GH_TOKEN }}
           production: true
           public: true
-          cwd: '../frontend'
+#          cwd: 'frontend'
 
     needs: build-test-frontend
