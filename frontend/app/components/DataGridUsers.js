@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import AuthContext from "@/contexts/authContext";
 import { GET_ALL_USERS } from "@/lib/constants";
+import { POST_RATING } from "@/lib/constants";
 import { Card, CardHeader, CardBody, ScrollShadow } from "@nextui-org/react";
 
 function SettingsPage() {
+  const { user } = useContext(AuthContext);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,17 +30,25 @@ function SettingsPage() {
     fetchData();
   }, []);
 
-  const handleRatingClick = async (userEmail, ratingValue) => {
+  const handleRatingClick = async (
+    userEmail,
+    ratingValue,
+    voter_email = user.email
+  ) => {
     try {
       // Make an API request to send the rating value to the backend
-      const response = await fetch(`/api/users/${userEmail}/ratings`, {
+      const response = await fetch(`${POST_RATING}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ rating: ratingValue, userEmail: userEmail }),
+        body: JSON.stringify({
+          rating: ratingValue,
+          email: userEmail,
+          voter_email,
+        }),
       });
-
+      console.log(user)
       if (!response.ok) {
         throw new Error("Failed to send rating to the backend");
       }

@@ -34,7 +34,6 @@ class Register(api_views.CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         data = request.data.copy()
-        print(data)
         if 'password' in data:
             data['password'] = make_password(data['password'])
             serializer = self.get_serializer(data=data)
@@ -56,7 +55,6 @@ class Login(APIView):
         if email and password:
             if email in all_usernames:
                 user = User.objects.get(email=email)
-                print(user.password)
                 if check_password(password, user.password):
                     refresh_payload = {
                         'user_id': user.id,
@@ -100,7 +98,6 @@ class UpdateUser(APIView):
             user.description = description
             user.city = city
             user.picture = pictureLink
-            print(pictureLink)
             user.save()
             return Response({"message": "User published successfully"})
 
@@ -124,3 +121,28 @@ class FrontPage(APIView):
         string_array = json.dumps(array_with_users)
 
         return Response(string_array)
+
+
+class Rating(APIView):
+
+    def post(self, request, *args, **kwargs):
+        mail_address = request.data.get('email')
+        rating = request.data.get('rating')
+        voter_mail = request.data.get('voter_email')
+        user = User.objects.get(email=mail_address)
+        voters = user.voters
+        user_all_mails = []
+
+        if voters:
+            user_all_mails = voters.split(',')
+
+        if voter_mail in user_all_mails:
+            return Response({"message": "You can't vote twice"}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.rating = int(user.rating) + int(rating) if user.rating else int(rating)
+        if user.voters:
+            user.voters += f"{voter_mail},"
+        else:
+            user.voters = f"{voter_mail},"
+        user.save()
+        return Response({"message": "You have voted successfully."}, status=status.HTTP_200_OK)
