@@ -71,6 +71,5 @@ jobs:
             github-token: ${{ secrets.MY_PERSONAL_GH_TOKEN }}
             production: true
             public: true
-#            cwd: 'frontend'
 
     needs: build-test-frontend
