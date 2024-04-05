@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { GET_ALL_USERS } from "@/lib/constants";
-import { Card, CardHeader, CardBody } from "@nextui-org/react";
+import { Card, CardHeader, CardBody, ScrollShadow } from "@nextui-org/react";
+import { Tooltip, Button } from "@nextui-org/react";
 
 function SettingsPage() {
   const [users, setUsers] = useState([]);
@@ -50,7 +51,7 @@ function SettingsPage() {
                     <small className="text-default-500">{user.city}</small>
                     <small className="text-default-500">
                       {" "}
-                      Conatc: {user.email}
+                      Contact: {user.email}
                     </small>
                   </CardHeader>
                   <CardBody className="overflow-visible py-2">
@@ -59,7 +60,12 @@ function SettingsPage() {
                       src={user.picture}
                       className="w-full h-full object-cover"
                     />
-                    <h4 className="font-bold text-large">{user.description}</h4>
+
+                    <h4 className="font-bold text-large">
+                      <ScrollShadow className="w-full h-64">
+                        <p>{user.description}</p>
+                      </ScrollShadow>
+                    </h4>
                   </CardBody>
                 </Card>
               </div>
