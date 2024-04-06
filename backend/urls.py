@@ -2,7 +2,7 @@ from django.urls import include, path
 from rest_framework import routers, permissions
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from .views import BookViewSet, Login, Register, UpdateUser, FrontPage
+from .views import BookViewSet, Login, Register, UpdateUser, FrontPage, Rating, GetSingleUser
 
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -26,6 +26,8 @@ router.register(r'books', BookViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('api/register', Register.as_view(), name='register_user'),
+    path('api/rating', Rating.as_view(), name='rating'),
+    path('api/single-user', GetSingleUser.as_view(), name='single-user'),
     path('api/front-page', FrontPage.as_view(), name='front-page'),
     path('api/login/', Login.as_view(), name='login_view'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

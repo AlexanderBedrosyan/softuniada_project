@@ -24,39 +24,19 @@ class User(models.Model):
     password = models.CharField(max_length=128)
     city = models.CharField(max_length=120, choices=CITIES, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    picture = models.TextField(blank=True, null=True)
+    picture = models.TextField(blank=True, null=True, default='https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg')
+    rating = models.IntegerField(blank=True, null=True)
+    voters = models.TextField(blank=True, null=True)
+
+    def avg_rating(self):
+        all_voters = 0
+        if self.voters:
+            all_voters = len(self.voters.split(',')) - 1
+
+        if all_voters > 0 and self.rating > 0:
+            return round(self.rating / all_voters)
+        return 0
 
     def __str__(self):
         return f"{self.username}"
 
-
-class Rating(models.Model):
-
-    user = models.ManyToManyField(User, through='Voter', related_name='ratings', through_fields=('voted_user', 'voter'))
-    rating = models.IntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(5)]
-    )
-
-    def average_rating(self, user):
-        all_ratings = Rating.objects.filter(user=user)
-        total_rating_sum = sum(rating.rating for rating in all_ratings)
-        votes_count = all_ratings.count()
-        average_rating = total_rating_sum / votes_count if votes_count > 0 else 0
-        # all_users = self.user.through
-        # ratings_by_user = all_users.objects.filter(user=self)
-        # voters = [rating.user for rating in ratings_by_user]
-        #
-        # votes_count = Rating.objects.filter(user=self.user.first()).count()
-        # total_rating_sum = Rating.objects.filter(user=self.user.first()).aggregate(Sum('rating'))['rating__sum'] or 0
-        # rating = total_rating_sum / votes_count
-        return average_rating
-
-    def __str__(self):
-        return f"Average Rating for User: {3:.2f}"
-
-
-class Voter(models.Model):
-    voter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='voters')
-    voted_user = models.ForeignKey(Rating, on_delete=models.CASCADE, related_name='voted_users')
-    id_voted_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='id_voted_user')
-    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
