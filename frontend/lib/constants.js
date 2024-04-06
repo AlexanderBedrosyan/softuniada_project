@@ -1,18 +1,10 @@
-// export const REGISTER_USRE = "http://127.0.0.1:8000/api/register "; //API ROUT FOR REGISTERING USER
-// export const LOGIN_USER = "http://127.0.0.1:8000/api/login/"; //LOIGN USER API ENDPOINT RETURNS JWT ACESS
-// export const POST_DESCRIPTION = "http://127.0.0.1:8000/api/updateuser";
-// export const GET_SINGLE = "http://127.0.0.1:8000/api/single-user";
-// export const GET_ALL_USERS = "http://127.0.0.1:8000/api/front-page";
-// export const POST_RATING = "http://127.0.0.1:8000/api/rating";
+const REACT_APP_BACKEND_URL = 'https://softuniada-project-backend.onrender.com';
 
-export const REGISTER_USRE =
-  "https://softuniada-project-backend.onrender.com/api/register"; //API ROUT FOR REGISTERING USER
-export const LOGIN_USER =
-  "https://softuniada-project-backend.onrender.com/api/login/"; //LOIGN USER API ENDPOINT RETURNS JWT ACESS
-export const POST_DESCRIPTION =
-  "https://softuniada-project-backend.onrender.com/api/updateuser";
-export const GET_SINGLE = "https://softuniada-project-backend.onrender.com/api/single-user";
-export const GET_ALL_USERS =
-  "https://softuniada-project-backend.onrender.com/api/front-page";
-export const POST_RATING = "https://softuniada-project-backend.onrender.com/api/rating";
-fix
+export const REGISTER_USER = REACT_APP_BACKEND_URL + "/api/register"; //API ROUT FOR REGISTERING USER
+export const LOGIN_USER = REACT_APP_BACKEND_URL + "/api/login/"; //LOIGN USER API ENDPOINT RETURNS JWT ACESS
+export const POST_DESCRIPTION = REACT_APP_BACKEND_URL + "/api/updateuser";
+export const GET_SINGLE = REACT_APP_BACKEND_URL + "/api/single-user";
+export const GET_ALL_USERS = REACT_APP_BACKEND_URL + "/api/front-page";
+export const POST_RATING = REACT_APP_BACKEND_URL + "/api/rating";
+
+

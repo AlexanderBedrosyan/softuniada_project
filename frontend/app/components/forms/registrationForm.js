@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"; // Fixed import statement
 import { Spinner } from "@nextui-org/react";
 import { Button } from "@nextui-org/button";
 import styles from "./animation.module.css";
-import { REGISTER_USRE } from "@/lib/constants";
+import { REGISTER_USER } from "@/lib/constants.js";
 import { z, ZodError } from "zod";
 
 // Define schema using Zod
@@ -56,7 +56,7 @@ const RegistrationForm = () => {
 
       const registrationData = { username, email, password };
 
-      const response = await fetch(`${REGISTER_USRE}`, {
+      const response = await fetch(`${REGISTER_USER}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

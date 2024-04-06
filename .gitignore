@@ -9,3 +9,5 @@
 *.pyc
 envs.zip
 testing_script.py
+frontend/envs
+.env
