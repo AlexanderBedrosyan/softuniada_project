@@ -35,7 +35,7 @@ const RegistrationForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({}); // State to hold error messages for each field
   const [shake, setShake] = useState(false); // State to trigger shake animation
-
+  console.log(REGISTER_USER)
   useEffect(() => {
     // Reset shake animation after a brief delay
     const shakeTimeout = setTimeout(() => {
