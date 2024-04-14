@@ -13,16 +13,17 @@ jobs:
     steps:
       - name: Keep WebApp alive
         run: |
-            echo "Execute first GET requests to BE"
-            response=$(curl -sS https://softuniada-project-backend.onrender.com/)
-            echo "Request done"
-            sleep 6
-            echo "Execute third GET requests to BE"
-            response=$(curl -sS https://softuniada-project-backend.onrender.com/)
-            echo "Request done"
-            echo "Wait 5 seconds before next request"
-            sleep 5
-            echo "GET Request operation was successful"
+          echo 'GET'
+#            echo "Execute first GET requests to BE"
+#            response=$(curl -sS https://softuniada-project-backend.onrender.com/)
+#            echo "Request done"
+#            sleep 6
+#            echo "Execute third GET requests to BE"
+#            response=$(curl -sS https://softuniada-project-backend.onrender.com/)
+#            echo "Request done"
+#            echo "Wait 5 seconds before next request"
+#            sleep 5
+#            echo "GET Request operation was successful"
 
       - name: Delete old scheduled workflow runs
         uses: MajorScruffy/delete-old-workflow-runs@v0.3.0
