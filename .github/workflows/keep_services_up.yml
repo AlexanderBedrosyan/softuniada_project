@@ -1,39 +1,39 @@
-name: Schedule for GET requests
+# name: Schedule for GET requests
 
-on:
-  schedule:
-    - cron: '*/11 * * * *'
-  workflow_dispatch:
+# on:
+#   schedule:
+#     - cron: '*/11 * * * *'
+#   workflow_dispatch:
 
 
 
-jobs:
-  Keep-It-Alive:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Echo Test
-        run: echo TestTest
-      - name: Keep WebApp alive
-        run: |
-          do
-            echo "Execute first GET requests to BE"
-            response=$(curl -sS https://softuniada-project-backend.onrender.com/)
-            echo "Request done"
-            sleep 6
-            echo "Execute third GET requests to BE"
-            response=$(curl -sS https://softuniada-project-backend.onrender.com/)
-            echo "Request done"
-            echo "Wait 5 seconds before next request"
-            sleep 5
-            echo "GET Request operation was successful"
-          done
+# jobs:
+#   Keep-It-Alive:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Echo Test
+#         run: echo TestTest
+#       - name: Keep WebApp alive
+#         run: |
+#           do
+#             echo "Execute first GET requests to BE"
+#             response=$(curl -sS https://softuniada-project-backend.onrender.com/)
+#             echo "Request done"
+#             sleep 6
+#             echo "Execute third GET requests to BE"
+#             response=$(curl -sS https://softuniada-project-backend.onrender.com/)
+#             echo "Request done"
+#             echo "Wait 5 seconds before next request"
+#             sleep 5
+#             echo "GET Request operation was successful"
+#           done
 
-      - name: Delete old scheduled workflow runs
-        uses: MajorScruffy/delete-old-workflow-runs@v0.3.0
-        with:
-          repository: ${{ github.repository }}
-          workflow: ".github/workflows/keep_services_up.yml"
-          older-than-seconds: 3600
-          event: schedule
-        env:
-          GITHUB_TOKEN: ${{ secrets.MY_PERSONAL_GH_TOKEN }}
+#       - name: Delete old scheduled workflow runs
+#         uses: MajorScruffy/delete-old-workflow-runs@v0.3.0
+#         with:
+#           repository: ${{ github.repository }}
+#           workflow: ".github/workflows/keep_services_up.yml"
+#           older-than-seconds: 3600
+#           event: schedule
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.MY_PERSONAL_GH_TOKEN }}
